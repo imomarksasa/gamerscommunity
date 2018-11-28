@@ -16,27 +16,23 @@ client.on('message', message => {
 });
 
 
-client.on('guildMemberAdd', member => {
-    let channel = member.guild.channels.find('name', 'wᴇʟᴄᴏᴍᴇ');
-    let memberavatar = member.user.avatarURL
-      if (!channel) return;
-    let embed = new Discord.RichEmbed()
-        .setColor('RANDOM')
-        .setThumbnail(memberavatar)
-        .addField('🎽 | name :  ',`${member}`)
-        .addField('📢 | نورت السيرفر يا قلبي' , `Welcome to the server, ${member}`)
-        .addField('🆔 | user :', "**[" + `${member.id}` + "]**" )
-                .addField('➡| انت العضو رقم',`${member.guild.memberCount}`)
-               
-                  .addField("Name:",`<@` + `${member.id}` + `>`, true)
-                     
-                                     .addField(' الـسيرفر', `${member.guild.name}`,true)
-                                       
-     .setFooter("Gᴀᴍᴇʀs Cᴏᴍᴍᴜɴɪᴛʏ 🎮")
-        .setTimestamp()
-   
-      channel.sendEmbed(embed);
-    });
+client.on('ready', function(){
+    var ms = 10000 ;
+    var setGame = [`Bot ON ${client.guilds.size} Servers`,`In Server ${client.users.size} Users`];
+    var i = -1;
+    var j = 0;
+    setInterval(function (){
+        if( i == -1 ){
+            j = 1;
+        }
+        if( i == (setGame.length)-1 ){
+            j = -1;
+        }
+        i = i+j;
+        client.user.setGame(setGame[i],`http://www.twitch.tv/KiNg66S`);
+    }, ms);
+
+});
 
 
 client.login(process.env.BOT_TOKEN);
